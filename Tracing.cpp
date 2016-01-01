@@ -6,7 +6,7 @@ namespace PortableRuntime
 
 static void null_dprintf(_In_z_ const char* format) noexcept
 {
-    (format);   // Unreferenced parameter.
+    (void)(format); // Unreferenced parameter.
 }
 
 static Output_dprintf output_dprintf = null_dprintf;
@@ -23,7 +23,7 @@ void dprintf(_In_z_ const char* format, ...) noexcept
     va_end(args);
     output_dprintf(print_buffer);
 #else
-    (format);   // Unreferenced parameter.
+    (void)(format); // Unreferenced parameter.
 #endif
 }
 
