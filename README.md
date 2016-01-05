@@ -4,7 +4,7 @@ library is small and attempts to be very portable.
 
 The focus of the library is the following:
 * Architecture abstractions for endianness and compiler differences.
-* Tracing and error handling.
+* Tracing and error handling, plus Scope_exit for clean unwind.
 * Unicode string handling.
 
 All attempts are made at making shared libraries completely independent to keep

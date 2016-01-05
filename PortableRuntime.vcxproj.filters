@@ -40,5 +40,8 @@
     <ClInclude Include="Endian.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ScopeExit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -52,6 +52,7 @@
     <ClInclude Include="CheckException.h" />
     <ClInclude Include="Endian.h" />
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="ScopeExit.h" />
     <ClInclude Include="Tracing.h" />
     <ClInclude Include="Unicode.h" />
     <ClCompile Include="Endian.cpp" />
