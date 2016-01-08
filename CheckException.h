@@ -5,7 +5,7 @@ namespace PortableRuntime
 
 // TODO: Move implementation to .cpp file.
 // TODO: Move this to a detail namespace, and have client code use the macro to avoid unnecessary evaluaton of string.
-inline void check_exception(bool result, const char* message)
+inline void check_exception(bool result, _In_z_ const char* message)
 {
     if(!result)
     {
@@ -23,10 +23,10 @@ inline void check_exception(bool result, const char* message)
 }
 
 #define CHECK_EXCEPTION(zzz_expr, zzz_str) { \
-    const bool zzz_val = zzz_expr; \
+    const bool zzz_val = (zzz_expr); \
     if(!zzz_val) \
     { \
-        PortableRuntime::check_exception(zzz_val, zzz_str); \
+        PortableRuntime::check_exception(zzz_val, (zzz_str)); \
     } \
     _Analysis_assume_(zzz_expr); \
 }

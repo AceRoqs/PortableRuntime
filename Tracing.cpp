@@ -27,7 +27,7 @@ void dprintf(_In_z_ const char* format, ...) noexcept
 #endif
 }
 
-void set_dprintf(const Output_dprintf output_function)
+void set_dprintf(const Output_dprintf output_function) noexcept
 {
     if(output_function == nullptr)
     {
