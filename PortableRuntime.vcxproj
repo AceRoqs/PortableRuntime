@@ -55,6 +55,7 @@
     <ClInclude Include="ScopeExit.h" />
     <ClInclude Include="Tracing.h" />
     <ClInclude Include="Unicode.h" />
+    <ClCompile Include="CheckException.cpp" />
     <ClCompile Include="Endian.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

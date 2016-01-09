@@ -23,6 +23,9 @@
     <ClCompile Include="Endian.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CheckException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PreCompile.h">
