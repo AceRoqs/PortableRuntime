@@ -6,7 +6,7 @@ namespace PortableRuntime
 namespace Detail
 {
 
-void check_exception(bool result, const std::string& message);
+void throw_exception(const std::string& message);
 
 }
 
@@ -16,9 +16,9 @@ void check_exception(bool result, const std::string& message);
     const bool zzz_val = (zzz_expr); \
     if(!zzz_val) \
     { \
-        PortableRuntime::Detail::check_exception(zzz_val, (zzz_str)); \
+        PortableRuntime::Detail::throw_exception((zzz_str)); \
     } \
-    _Analysis_assume_(zzz_expr); \
+    _Analysis_assume_((zzz_expr)); \
 }
 
 }
