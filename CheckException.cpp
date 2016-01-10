@@ -10,7 +10,7 @@ namespace Detail
 
 // TODO: Consider DebugBreak in log?
 // TODO: Add logging in catch statements to pair with the throws?  i.e. "Recovered exception, etc."
-void throw_exception(const std::string& message)
+void throw_exception(const std::string& message, _In_z_ const char* file_name, int line)
 {
 #if defined(_MSC_VER) && !defined(NDEBUG)
     // Work around MSVC issue where the abort() message box is displayed instead of the assert messagebox.
@@ -21,8 +21,9 @@ void throw_exception(const std::string& message)
 #endif
     // Force break.
     assert(false);
-    dprintf((message + "\n").c_str());
-    throw std::exception(message.c_str());
+    const auto exception_string = std::string(file_name) + "(" + std::to_string(line) + "): " + message;
+    dprintf((exception_string + "\n").c_str());
+    throw std::exception(exception_string.c_str());
 }
 
 }

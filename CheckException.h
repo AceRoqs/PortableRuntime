@@ -6,7 +6,7 @@ namespace PortableRuntime
 namespace Detail
 {
 
-void throw_exception(const std::string& message);
+void throw_exception(const std::string& message, _In_z_ const char* file_name, int line);
 
 }
 
@@ -16,7 +16,7 @@ void throw_exception(const std::string& message);
     const bool zzz_val = (zzz_expr); \
     if(!zzz_val) \
     { \
-        PortableRuntime::Detail::throw_exception((zzz_str)); \
+        PortableRuntime::Detail::throw_exception((zzz_str), __FILE__, __LINE__); \
     } \
     _Analysis_assume_((zzz_expr)); \
 }
