@@ -18,6 +18,15 @@ void dprintf(_In_z_ const char* format, ...) noexcept
     va_list args;
     va_start(args, format);
 
+    // Break on alert, if necessary.
+    if(format[0] == '!')
+    {
+        ++format;
+#ifdef _MSC_VER
+        __debugbreak();
+#endif
+    }
+
     vsprintf(print_buffer, format, args);
 
     va_end(args);
