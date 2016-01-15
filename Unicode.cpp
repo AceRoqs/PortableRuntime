@@ -24,7 +24,8 @@ std::string utf8_from_utf16(const std::wstring& utf16_string)
 
 // Untested, and not used anywhere.
 #if 0
-bool utf8_is_ascii(_In_z_ const char* utf8_string)
+_Use_decl_annotations_
+bool utf8_is_ascii(const char* utf8_string)
 {
     bool is_ascii = true;
 

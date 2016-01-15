@@ -11,7 +11,8 @@ static void null_dprintf(_In_z_ const char* format) noexcept
 
 static Output_dprintf output_dprintf = null_dprintf;
 
-void dprintf(_In_z_ const char* format, ...) noexcept
+_Use_decl_annotations_
+void dprintf(const char* format, ...) noexcept
 {
 #ifndef NDEBUG
     char print_buffer[1024];
