@@ -19,10 +19,10 @@ void dprintf(const char* format, ...) noexcept
     va_list args;
     va_start(args, format);
 
-    vsprintf(&print_buffer[0], format, args);
+    vsprintf(print_buffer, format, args);
 
     va_end(args);
-    output_dprintf(&print_buffer[0]);
+    output_dprintf(print_buffer);
 #else
     (void)(format); // Unreferenced parameter.
 #endif
