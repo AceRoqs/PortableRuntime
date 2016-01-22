@@ -8,5 +8,6 @@
 #include <codecvt>
 #include <cstdarg>
 #include <cstdint>
+#include <memory>
 #include <string>
 

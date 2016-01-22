@@ -3,6 +3,15 @@
 namespace PortableRuntime
 {
 
+class Exception : public std::exception
+{
+    std::shared_ptr<std::string> m_what;
+
+public:
+    explicit Exception(const std::string& message);
+    virtual const char* what() const noexcept override;
+};
+
 namespace Detail
 {
 
