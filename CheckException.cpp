@@ -5,30 +5,30 @@
 namespace PortableRuntime
 {
 
-Exception::Exception(const std::string& message)
+// TODO: Add logging in catch statements to pair with the throws?  i.e. "Recovered exception, etc."
+
+_Use_decl_annotations_
+Exception::Exception(const std::string& message, const char* file_name, int line) : m_file(file_name), m_line(line)
 {
-    // TODO: handle bad_alloc
-    // TODO: consider std::forward for message?
-    m_what = std::make_shared<std::string>(message);
+    try
+    {
+        const auto exception_string = std::string(file_name) + '(' + std::to_string(line) + "): " + message;
+        dprintf(('!' + exception_string + '\n').c_str());
+
+        // TODO: consider std::forward for message?
+        m_what = std::make_shared<std::string>(exception_string);
+    }
+    catch(const std::bad_alloc& ex)
+    {
+        (void)(ex);     // Unreferenced parameter.
+
+        dprintf("!Failed creation of exception object.");
+    }
 }
 
 const char* Exception::what() const noexcept
 {
-    return m_what->c_str();
-}
-
-namespace Detail
-{
-
-// TODO: Add logging in catch statements to pair with the throws?  i.e. "Recovered exception, etc."
-_Use_decl_annotations_
-void throw_exception(const std::string& message, const char* file_name, int line)
-{
-    const auto exception_string = std::string(file_name) + '(' + std::to_string(line) + "): " + message;
-    dprintf(('!' + exception_string + '\n').c_str());
-    throw Exception(exception_string.c_str());
-}
-
+    return m_what ? m_what->c_str() : "Allocation failed while handling another exception.";
 }
 
 }
