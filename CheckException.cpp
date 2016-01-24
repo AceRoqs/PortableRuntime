@@ -8,15 +8,15 @@ namespace PortableRuntime
 // TODO: Add logging in catch statements to pair with the throws?  i.e. "Recovered exception, etc."
 
 _Use_decl_annotations_
-Exception::Exception(const std::string& message, const char* file_name, int line) : m_file(file_name), m_line(line)
+Exception::Exception(const std::string& message, const char* file_name, int line) noexcept : m_file_name(file_name), m_line(line), m_formatted(false)
 {
     try
     {
-        const auto exception_string = std::string(file_name) + '(' + std::to_string(line) + "): " + message;
-        dprintf(('!' + exception_string + '\n').c_str());
+        dprintf("!%s(%d): %s\n", file_name, line, message.c_str());
 
         // TODO: consider std::forward for message?
-        m_what = std::make_shared<std::string>(exception_string);
+        // Just save off the message now, but do the full formatting in what(), to allow exception unwind to free up some resources.
+        m_what = std::make_shared<std::string>(message);
     }
     catch(const std::bad_alloc& ex)
     {
@@ -28,7 +28,34 @@ Exception::Exception(const std::string& message, const char* file_name, int line
 
 const char* Exception::what() const noexcept
 {
-    return m_what ? m_what->c_str() : "Allocation failed while handling another exception.";
+    const char* what = "Allocation failed while handling another exception.";
+
+    try
+    {
+        if(m_what && !m_formatted)
+        {
+            auto exception_string = std::string(m_file_name) + '(' + std::to_string(m_line) + "): " + *m_what;
+            std::swap(exception_string, *m_what);
+            m_formatted = true;
+        }
+
+        if(m_formatted)
+        {
+            what = m_what->c_str();
+        }
+    }
+    catch(const std::bad_alloc& ex)
+    {
+        (void)(ex);     // Unreferenced parameter.
+
+        // There isn't enough free memory to format the string, so just return what is available.
+        if(m_what)
+        {
+            what = m_what->c_str();
+        }
+    }
+
+    return what;
 }
 
 }
