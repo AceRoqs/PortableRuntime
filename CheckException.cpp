@@ -22,7 +22,7 @@ Exception::Exception(const std::string& message, const char* file_name, int line
     {
         (void)(ex);     // Unreferenced parameter.
 
-        dprintf("!Failed creation of exception object.");
+        dprintf("!Failed creation of exception object.\n");
     }
 }
 
