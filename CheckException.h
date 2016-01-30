@@ -24,13 +24,14 @@ public:
 
 // CHECK_EXCEPTION macro allows for usage of __FILE__ and __LINE__
 // and avoids evaluation of string in success case.
-#define CHECK_EXCEPTION(zzz_expr, zzz_message) { \
-    const bool zzz_val = (zzz_expr); \
-    if(!zzz_val) \
-    { \
-        throw ::PortableRuntime::Exception((zzz_message), __FILE__, __LINE__); \
-    } \
-    _Analysis_assume_((zzz_expr)); \
+#define CHECK_EXCEPTION(zzz_expr, zzz_message)                                  \
+{                                                                               \
+    const bool zzz_val = (zzz_expr);                                            \
+    if(!zzz_val)                                                                \
+    {                                                                           \
+        throw ::PortableRuntime::Exception((zzz_message), __FILE__, __LINE__);  \
+    }                                                                           \
+    _Analysis_assume_((zzz_expr));                                              \
 }
 
 }
