@@ -31,7 +31,6 @@ public:
     {                                                                           \
         throw ::PortableRuntime::Exception((zzz_message), __FILE__, __LINE__);  \
     }                                                                           \
-    _Analysis_assume_((zzz_expr));                                              \
 }
 
 }
