@@ -8,7 +8,12 @@ namespace PortableRuntime
 // TODO: Add logging in catch statements to pair with the throws?  i.e. "Recovered exception, etc."
 
 _Use_decl_annotations_
-Exception::Exception(const std::string& message, const char* file_name, int line) noexcept : m_file_name(file_name), m_line(line), m_formatted(false)
+Exception::Exception(const char* file_name, int line) noexcept : m_file_name(file_name), m_line(line), m_formatted(false)
+{
+}
+
+_Use_decl_annotations_
+Exception::Exception(const std::string& message, const char* file_name, int line) noexcept : Exception(file_name, line)
 {
     try
     {

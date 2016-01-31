@@ -6,6 +6,8 @@ namespace PortableRuntime
 class Exception : public std::exception
 {
 protected:
+    explicit Exception(_In_z_ const char* file_name, int line) noexcept;
+
     // Use a shared_ptr to minimize the memory cost when copying an exception during unwind.
     // If m_what is nullptr, then there was a problem during construction, very likely a bad_alloc.
     mutable std::shared_ptr<std::string> m_what;
