@@ -13,11 +13,11 @@ protected:
     mutable std::shared_ptr<std::string> m_what;
 
     // File and line saved to provide information in case m_what can't be created.
-    const char* m_file_name;
-    int m_line;
+    const char* m_file_name = nullptr;
+    int m_line = -1;
 
     // True if m_what already has file and line information.
-    mutable bool m_formatted;
+    mutable bool m_formatted = false;
 
 public:
     explicit Exception(const std::string& message, _In_z_ const char* file_name, int line) noexcept;
@@ -26,6 +26,9 @@ public:
 
 // CHECK_EXCEPTION macro allows for usage of __FILE__ and __LINE__
 // and avoids evaluation of string in success case.
+// NOTE: It is assumed that __FILE__ is UTF-8 or at least ASCII.  Under MSVC,
+// this expands based on code page, so for correctness, filenames must be ASCII only.
+// TODO: 2016: Document this guideline/restriction somewhere.
 #define CHECK_EXCEPTION(zzz_expr, zzz_message)                                  \
 {                                                                               \
     const bool zzz_val = (zzz_expr);                                            \

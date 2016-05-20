@@ -8,7 +8,7 @@ namespace PortableRuntime
 // TODO: Add logging in catch statements to pair with the throws?  i.e. "Recovered exception, etc."
 
 _Use_decl_annotations_
-Exception::Exception(const char* file_name, int line) noexcept : m_file_name(file_name), m_line(line), m_formatted(false)
+Exception::Exception(const char* file_name, int line) noexcept : m_file_name(file_name), m_line(line)
 {
 }
 
@@ -25,7 +25,7 @@ Exception::Exception(const std::string& message, const char* file_name, int line
     }
     catch(const std::bad_alloc& ex)
     {
-        (void)(ex);     // Unreferenced parameter.
+        (void)ex;       // Unreferenced parameter.
 
         dprintf("!Failed creation of exception object.\n");
     }
@@ -51,7 +51,7 @@ const char* Exception::what() const noexcept
     }
     catch(const std::bad_alloc& ex)
     {
-        (void)(ex);     // Unreferenced parameter.
+        (void)ex;       // Unreferenced parameter.
 
         // There isn't enough free memory to format the string, so just return what is available.
         if(m_what)
