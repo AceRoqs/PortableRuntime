@@ -65,5 +65,10 @@ const char* Exception::what() const noexcept
     return what;
 }
 
+Error::Error(const std::string& message, _In_z_ const char* file_name, int line) noexcept : Exception(message, file_name, line)
+{
+    m_formatted = true;
+}
+
 }
 

@@ -14,7 +14,7 @@ protected:
 
     // File and line saved to provide information in case m_what can't be created.
     const char* m_file_name = nullptr;
-    int m_line = -1;
+    const int m_line = -1;
 
     // True if m_what already has file and line information.
     mutable bool m_formatted = false;
@@ -22,6 +22,12 @@ protected:
 public:
     explicit Exception(const std::string& message, _In_z_ const char* file_name, int line) noexcept;
     virtual const char* what() const noexcept override;
+};
+
+class Error : public Exception
+{
+public:
+    explicit Error(const std::string& message, _In_z_ const char* file_name, int line) noexcept;
 };
 
 // CHECK_EXCEPTION macro allows for usage of __FILE__ and __LINE__
@@ -35,6 +41,15 @@ public:
     if(!zzz_val)                                                                \
     {                                                                           \
         throw ::PortableRuntime::Exception((zzz_message), __FILE__, __LINE__);  \
+    }                                                                           \
+}
+
+#define CHECK_ERROR(zzz_expr, zzz_message)                                      \
+{                                                                               \
+    const bool zzz_val = (zzz_expr);                                            \
+    if(!zzz_val)                                                                \
+    {                                                                           \
+        throw ::PortableRuntime::Error((zzz_message), __FILE__, __LINE__);      \
     }                                                                           \
 }
 
