@@ -37,16 +37,18 @@ const char* Exception::what() const noexcept
 
     try
     {
-        if(m_what && !m_formatted)
+        if(m_what)
         {
-            auto exception_string = std::string(m_file_name) + '(' + std::to_string(m_line) + "): " + *m_what;
-            std::swap(exception_string, *m_what);
-            m_formatted = true;
-        }
-
-        if(m_formatted)
-        {
-            what = m_what->c_str();
+            if(m_formatted)
+            {
+                what = m_what->c_str();
+            }
+            else
+            {
+                auto exception_string = std::string(m_file_name) + '(' + std::to_string(m_line) + "): " + *m_what;
+                std::swap(exception_string, *m_what);
+                m_formatted = true;
+            }
         }
     }
     catch(const std::bad_alloc& ex)
