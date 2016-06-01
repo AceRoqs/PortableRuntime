@@ -39,15 +39,16 @@ const char* Exception::what() const noexcept
     {
         if(m_what)
         {
-            if(m_formatted)
-            {
-                what = m_what->c_str();
-            }
-            else
+            if(!m_formatted)
             {
                 auto exception_string = std::string(m_file_name) + '(' + std::to_string(m_line) + "): " + *m_what;
                 std::swap(exception_string, *m_what);
                 m_formatted = true;
+            }
+
+            if(m_formatted)
+            {
+                what = m_what->c_str();
             }
         }
     }
