@@ -13,11 +13,11 @@ protected:
     mutable std::shared_ptr<std::string> m_what;
 
     // File and line saved to provide information in case m_what can't be created.
-    const char* m_file_name = nullptr;
-    const int m_line = -1;
+    const char* m_file_name {};
+    const int m_line {-1};
 
     // True if m_what already has file and line information.
-    mutable bool m_formatted = false;
+    mutable bool m_formatted {};
 
 public:
     explicit Exception(const std::string& message, _In_z_ const char* file_name, int line) noexcept;

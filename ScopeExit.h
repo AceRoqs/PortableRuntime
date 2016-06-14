@@ -11,8 +11,7 @@ class Scope_exit
 {
 public:
     explicit Scope_exit(Lambda&& lambda) noexcept :
-        m_lambda(std::move(lambda)),
-        m_execute_lambda(true)
+        m_lambda(std::move(lambda))
     {
     }
 
@@ -37,7 +36,7 @@ public:
         }
     }
 
-    void release()
+    void release() noexcept
     {
         m_execute_lambda = false;
     }
@@ -45,10 +44,10 @@ public:
 private:
     Scope_exit(const Scope_exit&) = delete;
     Scope_exit& operator=(const Scope_exit&) = delete;
-    Scope_exit& operator=(Scope_exit&&) = delete;
+    Scope_exit& operator=(Scope_exit&&) noexcept = delete;
 
     Lambda m_lambda;
-    bool m_execute_lambda;
+    bool m_execute_lambda {true};
 };
 
 }
