@@ -6,9 +6,16 @@ namespace PortableRuntime
 namespace Detail
 {
 
-template <typename Lambda>
+template<typename Lambda>
 class Scope_exit
 {
+    Lambda m_lambda;
+    bool m_execute_lambda{true};
+
+    Scope_exit(const Scope_exit&) = delete;
+    Scope_exit& operator=(const Scope_exit&) = delete;
+    Scope_exit& operator=(Scope_exit&&) noexcept = delete;
+
 public:
     explicit Scope_exit(Lambda&& lambda) noexcept :
         m_lambda(std::move(lambda))
@@ -40,20 +47,12 @@ public:
     {
         m_execute_lambda = false;
     }
-
-private:
-    Scope_exit(const Scope_exit&) = delete;
-    Scope_exit& operator=(const Scope_exit&) = delete;
-    Scope_exit& operator=(Scope_exit&&) noexcept = delete;
-
-    Lambda m_lambda;
-    bool m_execute_lambda {true};
 };
 
 }
 
 // This exists to allow the template argument to be deduced automatically when used.
-template <typename Lambda>
+template<typename Lambda>
 Detail::Scope_exit<Lambda> Scope_exit(Lambda&& lambda)
 {
     return Detail::Scope_exit<Lambda>(std::move(lambda));
