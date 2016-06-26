@@ -36,22 +36,24 @@ public:
 // this expands based on code page, so for correctness, filenames must be ASCII only.
 // TODO: 2016: Document this guideline/restriction somewhere.
 #define CHECK_EXCEPTION(zzz_expr, zzz_message)                                  \
+[&]()                                                                           \
 {                                                                               \
     const bool zzz_val = (zzz_expr);                                            \
     if(!zzz_val)                                                                \
     {                                                                           \
         throw ::PortableRuntime::Exception((zzz_message), __FILE__, __LINE__);  \
     }                                                                           \
-}
+}()
 
 #define CHECK_ERROR(zzz_expr, zzz_message)                                      \
+[&]()                                                                           \
 {                                                                               \
     const bool zzz_val = (zzz_expr);                                            \
     if(!zzz_val)                                                                \
     {                                                                           \
         throw ::PortableRuntime::Error((zzz_message), __FILE__, __LINE__);      \
     }                                                                           \
-}
+}()
 
 }
 
