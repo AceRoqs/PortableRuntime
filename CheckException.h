@@ -22,6 +22,8 @@ protected:
 public:
     explicit Exception(const std::string& message, _In_z_ const char* file_name, int line) noexcept;
     virtual const char* what() const noexcept override;
+
+    void hide_details() const noexcept;
 };
 
 class Error : public Exception

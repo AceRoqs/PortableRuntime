@@ -66,6 +66,16 @@ const char* Exception::what() const noexcept
     return what;
 }
 
+void Exception::hide_details() const noexcept
+{
+    // TODO: 2016: Consider if details may need to be turned back on, especially after what()
+    // was already called.  For example, a dialog which shows the user-friendly error, but has
+    // a button to show the full details.
+    assert(!m_formatted);
+
+    m_formatted = true;
+}
+
 Error::Error(const std::string& message, _In_z_ const char* file_name, int line) noexcept : Exception(message, file_name, line)
 {
     m_formatted = true;
