@@ -1,5 +1,9 @@
 #pragma once
 
+// TODO: 2016: Remove this.
+#pragma message("***************** Remove this.")
+#include <functional>
+
 namespace PortableRuntime
 {
 
@@ -25,6 +29,21 @@ public:
 
     void hide_details() const noexcept;
 };
+
+// TODO: 2016: Rework this - the intent is to catch exceptions of a function passed in,
+// but CHECK_ERROR pre-executes the function.
+inline void friendly_exception(const std::function<void(void)>& lambda)
+{
+    try
+    {
+        lambda();
+    }
+    catch(const PortableRuntime::Exception& ex)
+    {
+        ex.hide_details();
+        throw;
+    }
+}
 
 class Error : public Exception
 {
