@@ -39,7 +39,10 @@ _Use_decl_annotations_
 std::string dprintf_string_from_varargs(const char* format, va_list args) noexcept
 {
     char print_buffer[1024];
-    vsprintf_s(print_buffer, format, args);
+    if(vsnprintf(print_buffer, sizeof(print_buffer), format, args) < 0)
+    {
+        return "Error during tracing.";
+    }
 
     return print_buffer;
 }
