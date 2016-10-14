@@ -8,6 +8,9 @@
 #include <codecvt>
 #include <cstdarg>
 #include <cstdint>
+#include <locale>
 #include <memory>
 #include <string>
+
+#include "StaticAnalysis.h"
 
