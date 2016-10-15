@@ -1,6 +1,10 @@
 #pragma once
 
-#ifndef _MSC_VER
+#ifdef _MSC_VER
+
+#include <sal.h>
+
+#else
 
 #define _In_
 #define _In_z_
