@@ -23,6 +23,11 @@ bool is_big_endian()
 }
 */
 
+#ifndef PORTABLE_RUNTIME_USE_BIG_ENDIAN
+#define PORTABLE_RUNTIME_USE_BIG_ENDIAN 0
+#endif
+constexpr bool use_big_endian = PORTABLE_RUNTIME_USE_BIG_ENDIAN;
+
 namespace PortableRuntime
 {
 
@@ -48,38 +53,42 @@ static uint32_t uint32_swap(uint32_t value) noexcept
 // Change byte order from big/little to native format.
 uint16_t lswap16(uint16_t value) noexcept
 {
-#ifdef BIG_ENDIAN
-    return uint16_swap(value);
-#else
+    if(use_big_endian)
+    {
+        return uint16_swap(value);
+    }
+
     return value;
-#endif
 }
 
 uint16_t bswap16(uint16_t value) noexcept
 {
-#ifdef BIG_ENDIAN
-    return value;
-#else
+    if(use_big_endian)
+    {
+        return value;
+    }
+
     return uint16_swap(value);
-#endif
 }
 
 uint32_t lswap32(uint32_t value) noexcept
 {
-#ifdef BIG_ENDIAN
-    return uint32_swap(value);
-#else
+    if(use_big_endian)
+    {
+        return uint32_swap(value);
+    }
+
     return value;
-#endif
 }
 
 uint32_t bswap32(uint32_t value) noexcept
 {
-#ifdef BIG_ENDIAN
-    return value;
-#else
+    if(use_big_endian)
+    {
+        return value;
+    }
+
     return uint32_swap(value);
-#endif
 }
 
 }
