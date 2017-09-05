@@ -26,10 +26,11 @@ bool is_big_endian()
 #ifndef PORTABLE_RUNTIME_USE_BIG_ENDIAN
 #define PORTABLE_RUNTIME_USE_BIG_ENDIAN 0
 #endif
-constexpr bool use_big_endian = PORTABLE_RUNTIME_USE_BIG_ENDIAN;
 
 namespace PortableRuntime
 {
+
+constexpr bool use_big_endian = PORTABLE_RUNTIME_USE_BIG_ENDIAN;
 
 // Change byte order from big to little or little to big.
 static uint16_t uint16_swap(uint16_t value) noexcept
